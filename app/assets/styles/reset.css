@@ -1,0 +1,22 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-block-size: 100vh;
+  background-color: var(--border-color);
+  color: var(--default-color);
+}
+
+ul,
+menu {
+  list-style: none;
+}
+
+button {
+  width: fit-content;
+  padding: 0.5em 0.8em;
+}

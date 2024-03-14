@@ -1,0 +1,31 @@
+@layer reset, critical;
+
+@import url("reset.css") layer(reset);
+@import url("critical.css") layer(critical);
+
+
+.text-contrast {
+  --background: var(--default-color);
+  --foreground: var(--border-color);
+  background-color: var(--background);
+  color: var(--foreground);
+  font: var(--weight, 400) var(--size, 1rem) sans-serif;
+  padding: 0.25rem 0.8rem;
+}
+
+.text-contrast__ratio {
+  color: var(--contrast-color, black);
+  font-size: 1.25rem;
+}
+
+.text-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 3rem;
+  & li {
+    display: inherit;
+    gap: 1rem;
+    align-items: center;
+  }
+}

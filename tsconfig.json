@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./app/*", "./dist/*", ""],
+      "pages/*": ["app/pages/*"],
+      "components/*": ["app/components/*"],
+      "contexts/*": ["app/contexts/*"],
+      "utils/*": ["app/utils/*"],
+      "assets/*": ["app/assets/*"]
+    }
+  }
+}
