@@ -7,11 +7,11 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./app/"),
-      components: `${path.resolve(__dirname, "./app/components/")}`,
-      contexts: `${path.resolve(__dirname, "./contexts/")}`,
+      components: path.resolve(__dirname, "./app/components/"),
+      contexts: path.resolve(__dirname, "./contexts/"),
       pages: path.resolve(__dirname, "./app/pages"),
-      utils: `${path.resolve(__dirname, "./app/utils")}`,
-      assets: `${path.resolve(__dirname, "./app/assets")}`,
+      utils: path.resolve(__dirname, "./app/utils"),
+      assets: path.resolve(__dirname, "./app/assets"),
     },
   },
 });

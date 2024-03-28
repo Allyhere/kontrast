@@ -9,6 +9,8 @@
   --default-gap: 1rem;
   --velocity: linear;
 
+  font-family: sans-serif;
+
   @media (prefers-reduced-motion: no-preference) {
     --velocity: 150ms ease-in-out;
   }
@@ -44,6 +46,10 @@
   }
 }
 
+.bled {
+  grid-column: 1 / -1;
+}
+
 .grid {
   --default-item-size: 350px;
   display: grid;
@@ -56,118 +62,97 @@
 
 /* Block */
 
-.color-picker {
-  --gap: 0px 1rem;
-  display: grid;
-  grid-template: repeat(2, max-content) / max-content 1fr;
-  grid-template-areas: "title ..." "picker input";
+.color-select {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1ch;
 }
 
-.color-picker__title {
-  grid-area: title;
-  transform: translateY(1ch);
-}
-
-.color-picker > label {
-  &:first-of-type {
-    --height: 40px;
-    --width: 90px;
-    display: block;
-    position: relative;
-    height: var(--height);
-    width: var(--width);
-    grid-area: picker;
-  }
-  &:last-of-type {
-    grid-area: input;
-  }
-}
-
-.color-drop {
-  --height: 40px;
-  --width: 90px;
-  display: block;
+.color-select__item {
   position: relative;
-  height: var(--height);
-  width: var(--width);
-
-  &::before {
-    display: block;
-    height: 40px;
-    width: 90px;
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: "";
-    border-radius: var(--rad-md);
-    outline: 2px solid var(--border-color);
-    outline-offset: 1px;
-    background-color: var(--background, var(--default-color));
+  &:not(:last-of-type) {
+    display: flex;
+    gap: 1ch;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    padding: 0.5ch;
   }
 }
 
-.color-drop__input {
-  appearance: none;
-  outline: none;
+.color-picker {
+  --size: 35px;
+  inline-size: var(--size);
+  block-size: var(--size);
+  background-color: var(--color, #ddd);
+  border-radius: 50%;
+  border: 2px solid #1a1a1a;
+}
+
+.color-picker__input {
+  inline-size: var(--size);
+  block-size: var(--size);
+  border-radius: 50%;
   opacity: 0;
 }
 
-.color-input {
-  --distance: 0.5em;
-  display: grid;
-  grid-template-rows: 18px 1fr;
-  gap: 4px;
+.color-field__input {
   font-size: 1rem;
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--default-color);
+  padding: 0.5cap;
+}
+
+.contrast-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  & > :last-child {
+    flex-basis: 360px;
+    flex-grow: 1;
   }
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--brand-color);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--velocity);
-    z-index: 1;
-  }
-  &:focus-within {
-    &::before {
-      transform: scaleX(1);
-    }
+  & > :first-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: 50%;
   }
 }
 
-.color-input__field {
-  grid-area: 2 / 1 / 3 / 2;
-  padding: var(--distance);
-  border: none;
-  background-color: transparent;
-  font-size: inherit;
-  &:is(:focus, :focus-visible) {
-    outline: none;
-  }
-  &:placeholder-shown ~ .color-input__name {
-    transform: translateY(50%);
-  }
+.contast-list__item {
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 1ch;
+  font-size: 2rem;
 }
 
-.color-input__name {
-  grid-area: 2 / 1 / 3 / 2;
+.contrast-details {
+  --gap: 0.5ch;
+  grid-template-rows: 1fr max-content max-content;
+  padding: 1ch;
+}
+
+.contrast-details__index {
+  font-size: 3rem;
+}
+
+.contrast-details__tag {
+  padding: 0.5ch 1.5ch;
+  background-color: gray;
+  width: fit-content;
+  border-radius: 100vmax;
+}
+
+.contrast-details__text {
+  font-size: 0.8rem;
+  grid-row: 3;
+}
+
+/* .outline {
+  box-shadow: 0 0 0 2px white;
+} */
+
+.btn\:delete {
   position: absolute;
-  bottom: 50%;
-  margin-left: var(--distance);
-  font-size: inherit;
-  transform: translateY(calc(-100% - 6px));
-  transition: transform var(--velocity);
+  top: 0;
+  right: 0;
+  transform: translate(-5px, -50%);
 }

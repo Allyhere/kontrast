@@ -9,6 +9,19 @@ import {
 
 import { levelType } from "./types";
 
+const retrieveTags = (contrast: number) => {
+  const tags = [];
+  const passAsLargeAA =
+    contrast > LARGE_SCALE_CONTRAST_AA && contrast < ACCEPTABLE_CONTRAST_AA;
+  const passAsLargeAAA =
+    contrast > LARGE_SCALE_CONTRAST_AAA && contrast < ACCEPTABLE_CONTRAST_AAA;
+
+  if (contrast > ACCEPTABLE_CONTRAST_AA) tags.push("AA");
+  if (contrast > ACCEPTABLE_CONTRAST_AAA) tags.push("AAA");
+
+  return { tags, passAsLargeAA, passAsLargeAAA };
+};
+
 const calculateLargeContrast = (
   contrast: number,
   level: levelType = "AA",
@@ -35,4 +48,4 @@ const calculateLargeContrast = (
   return contrast > isLargeScale() ? GREEN_COLOR : RED_COLOR;
 };
 
-export { calculateLargeContrast };
+export { calculateLargeContrast, retrieveTags };

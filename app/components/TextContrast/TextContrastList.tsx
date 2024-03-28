@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import TextContrast from "./TextContrast";
 import { makeColorPairings, parsedContrast } from "@/utils/colors";
 import { arrayOfColorsType, colorType } from "../ColorPicker/types";
+import ContrastList from "../ContrastList/ContrastList";
 
-const TextContrastList = ({ colors, textControls }) => {
+const TextContrastList = ({ colors }) => {
   const [colorList, setColorList] = useState<arrayOfColorsType>(
     makeColorPairings(colors)
   );
@@ -34,15 +34,11 @@ const TextContrastList = ({ colors, textControls }) => {
         />
         Filtrar cores com contraste suficiente.
       </label>
-      <ul>
+      <ul className="bled">
         {colorList.length > 0
           ? colorList.map((pair: colorType, index) => (
-              <li className="row" key={index} flexible="true">
-                <TextContrast
-                  pair={pair}
-                  textControls={textControls}
-                  contrast={parsedContrast(pair)}
-                />
+              <li className="row" key={index} flexible>
+                <ContrastList pair={pair} contrast={parsedContrast(pair)} />
               </li>
             ))
           : null}

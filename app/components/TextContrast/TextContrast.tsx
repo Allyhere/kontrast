@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { calculateLargeContrast } from "../../utils/largeTextCalculator";
 
 const TextContrast = ({ pair, contrast, textControls }) => {
@@ -17,24 +17,20 @@ const TextContrast = ({ pair, contrast, textControls }) => {
     <>
       <p
         className="text-contrast"
-        style={
-          {
-            "--background": background,
-            "--foreground": foreground,
-            "--size": `${textControls.fontSize}rem`,
-            "--weight": textControls.isBold && "bold",
-          } as React.CSSProperties
-        }
+        style={{
+          "--background": background,
+          "--foreground": foreground,
+          "--size": `${textControls.fontSize}rem`,
+          "--weight": textControls.isBold && "bold",
+        }}
       >
         Cor do texto {foreground} na cor de fundo {background}
       </p>
       <p
         className="text-contrast__ratio"
-        style={
-          {
-            "--contrast-color": imageContrastStyle(contrast),
-          } as React.CSSProperties
-        }
+        style={{
+          "--contrast-color": imageContrastStyle(contrast),
+        }}
       >
         {contrast}
       </p>
