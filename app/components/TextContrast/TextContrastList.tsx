@@ -26,7 +26,7 @@ const TextContrastList = ({ colors }) => {
     <>
       <label
         htmlFor="contrast"
-        className="row"
+        className="contrast-list__filter [ row ]"
         style={{ "--alignment": "center" }}
       >
         <input

@@ -10,6 +10,10 @@
     font-size: 1.5rem;
     padding-inline: 0.5ch;
   }
+  &__filter {
+    padding-inline: 1ch;
+    input { accent-color: var(--surface-color);}
+  }
   @media (min-width: 744px) {
     &::before {
       content: attr(data-color);
@@ -41,7 +45,7 @@
 
 .contrast-details {
   display: grid;
-  gap: 1rem;
+  column-gap: 1rem;
   grid-template: repeat(2, max-content) / max-content 1fr;
   align-items: center;
   padding-inline: 1.5rem;
@@ -67,9 +71,4 @@
   color: var(--background-color);
   width: fit-content;
   border-radius: 100vmax;
-}
-
-.contrast-details__text {
-  font-size: 0.8rem;
-  grid-row: 3;
 }
