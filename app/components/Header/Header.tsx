@@ -1,5 +1,29 @@
 import React from "react";
 
+const Rainbow = () => {
+  const BASE_STAGGER = 50;
+  const COLORS = [
+    "#E81416",
+    "#FFA500",
+    "#FAEB36",
+    "#79C314",
+    "#487DE7",
+    "#4B369D",
+    "#70369D",
+  ];
+
+  return (
+    <div className="rainbow">
+      {COLORS.map((color, index) => (
+        <div
+          className="rainbow__item"
+          style={{ "--stagger": `${BASE_STAGGER * index}ms`, "--color": color }}
+        ></div>
+      ))}
+    </div>
+  );
+};
+
 const Logo = () => {
   return (
     <header className="header [ bled row flexible ]">
@@ -9,6 +33,7 @@ const Logo = () => {
       <h2 className="logo__slogan">
         Bulk check the contrast of all your color combinations
       </h2>
+      {/* <Rainbow /> */}
     </header>
   );
 };

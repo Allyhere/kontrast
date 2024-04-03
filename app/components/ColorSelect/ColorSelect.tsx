@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { isValidString, hasInArray } from "@/utils/general";
 import { isColor } from "@/utils/colors";
-import { colorType } from "@/components/ColorPicker/types";
+import { colorType } from "@/components/types";
 import ColorItem from "./ColorItem";
 import { X } from "@phosphor-icons/react";
 

@@ -14,7 +14,7 @@
     padding-inline: 1ch;
     input { accent-color: var(--surface-color);}
   }
-  @media (min-width: 744px) {
+  @media (min-width: 1050px) {
     &::before {
       content: attr(data-color);
       position: absolute;

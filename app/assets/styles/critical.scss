@@ -3,6 +3,7 @@
 @use "components/select" as *;
 @use "components/buttons" as *;
 @use "components/contrast" as *;
+@use "components/empty-page" as *;
 /* Variables */
 
 :root {
@@ -47,14 +48,12 @@
 }
 
 .centered {
-  --padding: 1rem;
   display: grid;
   row-gap: var(--gap, var(--default-gap));
   grid-template-columns:
     1fr
     min(var(--center-size, calc(1024px - (var(--padding, 0px) / 2))), 100%)
     1fr;
-  padding-block: var(--padding);
   & > * {
     grid-column: 2;
   }
@@ -74,5 +73,6 @@
   );
 }
 
-
-
+.px-1 {
+  padding-inline: 1ch;
+}

@@ -1,5 +1,5 @@
 import Color from "colorjs.io/dist/color.js";
-import { arrayOfColorsType, colorType } from "@/components/ColorPicker/types";
+import { arrayOfColorsType, colorType } from "@/components/types";
 
 const isColor = (colorString: string) => {
   const HEX_REGEX = /(#|)([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})/g;

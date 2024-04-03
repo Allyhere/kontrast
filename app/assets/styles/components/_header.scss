@@ -1,4 +1,9 @@
-.header { padding-inline: 1ch; }
+.header {
+  padding: 1ch;
+  margin-bottom: -1rem;
+  position: relative;
+  overflow: hidden;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -21,5 +26,30 @@
     font-weight: 400;
     font-family: var(--body-font);
     line-height: 0.75;
+  }
+}
+.rainbow {
+  display: grid;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  &__item {
+    animation: surge 1s ease-out forwards;
+    animation-delay: var(--stagger);
+    background-color: var(--color);
+    transform: translateX(0);
+  }
+}
+
+@keyframes surge {
+  0% {
+    transform: translateX(0);
+  }
+  // 60% {
+  //   transform: scaleX(1);
+  // }
+  100% {
+    transform: translateX(100%);
   }
 }

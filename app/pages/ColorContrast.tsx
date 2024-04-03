@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import TextContrastList from "@/components/TextContrast/TextContrastList";
 import ColorSelect from "@/components/ColorSelect/ColorSelect";
-import { arrayOfColorsType } from "@/components/ColorPicker/types";
+import { arrayOfColorsType } from "@/components/types";
 import Header from "@/components/Header/Header";
+import EmptyPage from "@/components/EmptyPage/EmptyPage";
 
 const ColorContrast = () => {
   const [colorPickers, setColorPickers] = useState<arrayOfColorsType>(["#ddd"]);
@@ -14,7 +15,7 @@ const ColorContrast = () => {
       <ColorSelect colors={colorPickers} setColors={setColorPickers} />
       {colorPickers.length > 1 ? (
         <TextContrastList colors={colorPickers} />
-      ) : null}
+      ) : <EmptyPage />}
     </main>
   );
 };
