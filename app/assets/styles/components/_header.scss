@@ -1,0 +1,25 @@
+.header { padding-inline: 1ch; }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5ch;
+  color: var(--black-900);
+  font-family: var(--title-font);
+  font-size: 3.75rem;
+  font-weight: 800;
+  line-height: 0;
+  &__sun {
+    --size: 46px;
+    display: inline-block;
+    height: var(--size);
+    width: calc(var(--size) / 2);
+    background-color: currentColor;
+    border-radius: 10rem 0 0 10rem;
+  }
+  &__slogan {
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-family: var(--body-font);
+    line-height: 0.75;
+  }
+}

@@ -20,16 +20,17 @@ const makeColorPairings = (colors: arrayOfColorsType) => {
   const retrieveColors = [...colors];
 
   for (let i = 0; i < colors.length; ++i) {
-    if (retrieveColors[i + 1] === undefined) break;
     for (let l = 1; l < colors.length; ++l) {
       if (retrieveColors[i] === retrieveColors[l]) continue;
-      const newPairing = [...pairs, [retrieveColors[i], retrieveColors[l]]];
-      pairs = newPairing;
+      pairs.push([retrieveColors[i], retrieveColors[l]]);
     }
   }
 
-  // const reversedPairs = [...pairs].map((pair) => pair.slice().reverse());
-  const parsedTuples = new Set([...pairs].map((pair) => JSON.stringify(pair)));
+  const reorganizedPairs = pairs.map((pair) => pair.sort());
+
+  const parsedTuples = new Set(
+    [...reorganizedPairs].map((pair) => JSON.stringify(pair))
+  );
 
   return Array.from(parsedTuples, (tuple) => JSON.parse(tuple))
     .sort((a, b) => parsedContrast(a) - parsedContrast(b))

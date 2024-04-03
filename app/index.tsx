@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./assets/styles/style.css";
+import "./assets/styles/style.scss";
 
 // Render your React component
 const root = document.getElementById("root");

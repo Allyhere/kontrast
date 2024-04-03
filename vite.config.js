@@ -12,6 +12,7 @@ export default defineConfig({
       pages: path.resolve(__dirname, "./app/pages"),
       utils: path.resolve(__dirname, "./app/utils"),
       assets: path.resolve(__dirname, "./app/assets"),
+      hooks: path.resolve(__dirname, "./app/hooks"),
     },
   },
 });

@@ -8,33 +8,37 @@ const ContrastList = ({ pair, contrast }) => {
   const largeTextMessage = passAsLargeAAA ? "AAA" : passAsLargeAA ? "AA" : null;
 
   return (
-    <div className="contrast-list">
+    <div
+      className="contrast-list"
+      data-color={background}
+      style={{ "--background": background }}
+    >
       <div className="contrast-list__pair">
         <p
-          className="contast-list__item [ outline ]"
+          className="contrast-list__item [ outline ]"
           style={{ "--background": background, "--foreground": foreground }}
         >
           Text color is {foreground} and foreground color is {background}
         </p>
         <p
-          className="contast-list__item [ outline ]"
+          className="contrast-list__item [ outline ]"
           style={{ "--background": foreground, "--foreground": background }}
         >
           Text color is {background} and foreground color is {foreground}
         </p>
       </div>
-      <div className="contrast-details [ outline stack ]">
+      <div className="contrast-details [ outline ]">
         <p className="contrast-details__index">{contrast}</p>
         {tags.length ? (
           <ul className="contrast-details__tags [ row ]">
             {tags.map((tag, index) => (
-              <li className="contrast-details__tag" key={index}>
+              <li className={`contrast-details__tag${tag}`} key={index}>
                 {tag}
               </li>
             ))}
           </ul>
         ) : (
-          <span className="contrast-details__tag">BAD</span>
+          <span className="contrast-details__tag">bad</span>
         )}
         {isLargeText && (
           <p className="contrast-details__text">

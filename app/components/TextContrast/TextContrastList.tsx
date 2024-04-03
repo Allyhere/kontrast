@@ -24,7 +24,11 @@ const TextContrastList = ({ colors }) => {
 
   return (
     <>
-      <label htmlFor="contrast">
+      <label
+        htmlFor="contrast"
+        className="row"
+        style={{ "--alignment": "center" }}
+      >
         <input
           type="checkbox"
           name="contrast"
@@ -34,7 +38,7 @@ const TextContrastList = ({ colors }) => {
         />
         Filtrar cores com contraste suficiente.
       </label>
-      <ul className="bled">
+      <ul className="[ centered bled ]">
         {colorList.length > 0
           ? colorList.map((pair: colorType, index) => (
               <li className="row" key={index} flexible>

@@ -1,56 +1,79 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { isValidString, hasInArray } from "@/utils/general";
 import { isColor } from "@/utils/colors";
 import { colorType } from "@/components/ColorPicker/types";
-import { Trash } from "@phosphor-icons/react";
+import ColorItem from "./ColorItem";
+import { X } from "@phosphor-icons/react";
 
 function ColorSelect({ colors, setColors }) {
-  const validateInput = (input: string) =>
-    isValidString(input) && !hasInArray(colors, input);
+  const [tempColor, setTempColor] = useState<string>("");
+
+  const handleTempColor = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTempColor(event.target.value);
+  };
+
+  const parseColorPick = useCallback(
+    (input: string): colorType => {
+      const validateInput = (input: string) =>
+        isValidString(input) && !hasInArray(colors, input);
+
+      const parsedInput = (isColor(input) || []).filter(
+        (color) => validateInput(color) && !hasInArray(colors, color)
+      );
+
+      return parsedInput;
+    },
+    [colors]
+  );
+
+  const handleColorChange = (color: colorType) => {
+    setColors((prevColors: colorType) => [...prevColors, ...color]);
+  };
 
   const handlePaste = (event: React.ClipboardEvent) => {
     let pasteValue = (
       event.clipboardData || (window as any).clipboardData
     ).getData("text");
-    let parsedPaste = (isColor(pasteValue) || []).filter(
-      (color) => !hasInArray(colors, color)
-    );
 
-    if (!validateInput(pasteValue)) return;
-    setColors((prevColors: colorType) => [...prevColors, ...parsedPaste]);
+    const parsedInput = parseColorPick(pasteValue);
+    if (!parsedInput) return;
+    handleColorChange(parsedInput);
   };
 
-  const handlePicker = (event) => {
+  const handlePicker = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = event.target.value;
-    if (!validateInput(inputValue)) {
+    const parsedInput = parseColorPick(inputValue);
+    if (!parsedInput) {
       event.target.value = "";
       return;
     }
-    let parsedInput = (isColor(inputValue) || []).filter(
-      (color) => !hasInArray(colors, color)
-    );
-    setColors((prevColors: colorType) => [...prevColors, ...parsedInput]);
-
+    setTempColor("");
+    handleColorChange(parsedInput);
     event.target.value = "";
   };
 
-  const handleColorChange = (index: number, value: string) => {
+  const handleSpecificColorChange = (value: string, index: number) => {
     const newColors = [...colors];
     newColors.splice(index, 1, value);
-    console.log(colors, newColors);
     setColors(newColors);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const inputValue = (event.currentTarget.elements[1] as HTMLInputElement)
-      .value;
-    if (!validateInput(inputValue)) {
-      event.currentTarget.reset();
+    const {
+      currentTarget,
+      currentTarget: { elements: inputElements },
+    } = event;
+    const inputValue = (inputElements[1] as HTMLInputElement).value;
+
+    const parsedInput = parseColorPick(inputValue);
+    if (!parsedInput) {
+      currentTarget.reset();
       return;
     }
-    setColors((prevColors: colorType) => [...prevColors, inputValue]);
-    event.currentTarget.reset();
+
+    handleColorChange(parsedInput);
+    currentTarget.reset();
   };
 
   const handleDelete = (index: number) => {
@@ -62,68 +85,70 @@ function ColorSelect({ colors, setColors }) {
   const clearSelection = () => setColors([]);
 
   return (
-    <ul className="color-select [ row ]" flexible>
-      {colors.length
-        ? colors.map((color: string, index: number) => {
-            return (
-              <li key={index} className="color-select__item">
-                <label
-                  htmlFor="color"
-                  className="color-picker"
-                  style={{ "--color": color } as React.CSSProperties}
-                >
-                  <input
-                    type="color"
-                    className="color-picker__input"
-                    value={color}
-                    onInput={(event: React.ChangeEvent<HTMLInputElement>) =>
-                      handleColorChange(index, event.target.value)
-                    }
-                  />
-                </label>
-                {color.toUpperCase()}
-                <button
-                  className="btn:delete"
-                  onClick={() => handleDelete(index)}
-                  aria-label="Delete color"
-                >
-                  <Trash size={20} />
-                </button>
-              </li>
-            );
-          })
-        : null}
+    <ul className="color-select [ bled row ]" flexible>
       <li className="color-select__item">
         <form
+          className="color-field [ stack ]"
           onSubmit={handleSubmit}
           noValidate
-          className="row"
           style={{ "--gap": "1ch" } as React.CSSProperties}
         >
-          <label htmlFor="colorpicker" className="color-picker">
+          <label
+            htmlFor="color"
+            aria-label="add a color"
+            className="color-field__label"
+          >
+            <small>add a color (or a list of colors)</small>
+          </label>
+          <label
+            htmlFor="colorpicker"
+            className="color-picker"
+            style={{ "--color": tempColor } as React.CSSProperties}
+          >
             <input
               type="color"
               name="colorpicker"
               id="colorpicker"
               className="color-picker__input"
-              onChange={handlePicker}
-            />
-          </label>
-          <label
-            htmlFor="color"
-            aria-label="add a color"
-            className="color-field"
-          >
-            <input
-              type="text"
-              placeholder="add a color"
-              className="color-field__input"
-              onPaste={handlePaste}
+              onInput={handleTempColor}
               onBlur={handlePicker}
             />
           </label>
-          <button onClick={clearSelection}>Clear selection</button>
+          <input
+            type="text"
+            placeholder="add a color"
+            name="color"
+            className="color-field__input"
+            onPaste={handlePaste}
+            onBlur={handlePicker}
+          />
         </form>
+      </li>
+      {tempColor ? (
+        <ColorItem color={tempColor} index={colors.length + 1} />
+      ) : null}
+      {colors.length ? (
+        colors.map((color: string, index: number) => (
+          <ColorItem
+            key={index}
+            index={index}
+            color={color}
+            colorChange={handleSpecificColorChange}
+            colorDelete={handleDelete}
+          />
+        ))
+      ) : (
+        <li className="color-select__item">your color here</li>
+      )}
+      <li className="color-select__item">
+        <button
+          onClick={clearSelection}
+          type="button"
+          className="color-select__clear [ btn ]"
+          aria-label="Clear selection"
+        >
+          <X size={32} color="currentColor" />
+        </button>
       </li>
     </ul>
   );

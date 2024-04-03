@@ -1,0 +1,15 @@
+[class*=btn] {
+  border: none;
+}
+
+.btn\:delete {
+  display: grid;
+  place-items: center;
+  padding: 0.5ch;
+  position: absolute;
+  top: 0; right: 0;
+  background-color: var(--surface-color);
+  border-radius: 50%;
+  color: var(--background-color);
+  transform: translate(-5px, -50%);
+}

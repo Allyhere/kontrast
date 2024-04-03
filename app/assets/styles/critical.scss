@@ -1,0 +1,78 @@
+@use "components/header" as *;
+@use "components/marquee" as *;
+@use "components/select" as *;
+@use "components/buttons" as *;
+@use "components/contrast" as *;
+/* Variables */
+
+:root {
+  --white-100: #efefef;
+  --black-900: #000000;
+  --surface-color: var(--black-900);
+  --background-color: var(--white-100);
+  --body-font: "Hind", sans-serif;
+  --title-font: "Montserrat", sans-serif;
+
+  --default-color: hsl(0, 0%, 95%);
+  --border-color: hsl(0, 0%, 10%);
+  --brand-color: hsl(0, 79%, 63%);
+
+  --rad-circle: 50%;
+  --rad-round: 100vmax;
+  --default-gap: 1rem;
+  --velocity: linear;
+
+  font-family: var(--body-font);
+
+  @media (prefers-reduced-motion: no-preference) {
+    --velocity: 150ms ease-in-out;
+  }
+}
+
+/* Composition */
+
+.stack {
+  display: grid;
+  row-gap: var(--gap, var(--default-gap));
+}
+
+.row {
+  display: flex;
+  gap: var(--gap, 12px);
+  align-items: var(--alignment, flex-end);
+}
+
+.flexible {
+  flex-wrap: wrap;
+}
+
+.centered {
+  --padding: 1rem;
+  display: grid;
+  row-gap: var(--gap, var(--default-gap));
+  grid-template-columns:
+    1fr
+    min(var(--center-size, calc(1024px - (var(--padding, 0px) / 2))), 100%)
+    1fr;
+  padding-block: var(--padding);
+  & > * {
+    grid-column: 2;
+  }
+}
+
+.bled {
+  grid-column: 1 / -1;
+}
+
+.grid {
+  --default-item-size: 350px;
+  display: grid;
+  gap: var(--gap, var(--default-gap));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(var(--min-size, var(--default-item-size)), 1fr)
+  );
+}
+
+
+

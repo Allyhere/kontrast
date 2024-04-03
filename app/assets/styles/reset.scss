@@ -6,8 +6,9 @@
 
 body {
   min-block-size: 100vh;
-  background-color: var(--border-color);
-  color: var(--default-color);
+  background-color: var(--background-color);
+  border: 12px solid var(--surface-color);
+  color: var(--surface-color);
 }
 
 ul,
